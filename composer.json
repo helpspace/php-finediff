@@ -1,6 +1,6 @@
 {
-    "name": "d4h/finediff",
-    "description": "PHP implementation of a Fine granularity Diff engine",
+    "name": "riki137/finediff",
+    "description": "PHP8 implementation of a Fine granularity Diff engine",
     "license": "MIT",
     "keywords": ["finediff", "diff", "text", "string", "opcode"],
     "authors": [
@@ -21,7 +21,7 @@
     ],
     "type": "library",
     "require": {
-        "php": ">=7.2.0"
+        "php": "^7.4 || ^8.1"
     },
     "require-dev": {
         "mockery/mockery": "^1.3",

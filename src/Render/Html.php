@@ -29,24 +29,21 @@ class Html extends Renderer
 		$this->configRenderer = $configRenderer;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function callback($opcode, $from, $offset, $length): string
-	{
-		switch ($opcode) {
-			case OperationInterface::COPY:
-				return $this->onCopy($from, $offset, $length);
-			case OperationInterface::DELETE:
-				return $this->onDelete($from, $offset, $length);
-			case OperationInterface::INSERT:
-				return $this->onInsert($from, $offset, $length);
-			default:
-				throw new InvalidArgumentException('Undefined operation code "'.$opcode.'"');
-		}
-	}
+	public function callback(string $opcode, string $from, int $offset, int $length): string
+    {
+        switch ($opcode) {
+            case OperationInterface::COPY:
+                return $this->onCopy($from, $offset, $length);
+            case OperationInterface::DELETE:
+                return $this->onDelete($from, $offset, $length);
+            case OperationInterface::INSERT:
+                return $this->onInsert($from, $offset, $length);
+            default:
+                throw new InvalidArgumentException('Undefined operation code "'.$opcode.'"');
+        }
+    }
 
-	/**
+    /**
 	 * @param string $from
 	 * @param int $offset
 	 * @param int $length

@@ -23,7 +23,7 @@ class Parser implements ParserInterface
 	/**
 	 * @var string Text we are comparing against.
 	 */
-	protected string $formText;
+	protected string $fromText;
 
 	/**
 	 * @var int Position of the $from_text we are at.
@@ -90,15 +90,17 @@ class Parser implements ParserInterface
 	/**
 	 * @inheritdoc
 	 */
-	public function parse($fromText, $toText): OperationCodesInterface
+	public function parse(?string $fromText, ?string $toText): OperationCodesInterface
 	{
+        $fromText ??= "";
+        $toText ??= "";
 		// Ensure the granularity contains some delimiters
 		if (count($this->granularity) === 0) {
 			throw new GranularityCountException('Granularity contains no delimiters');
 		}
 
 		// Reset internal parser properties
-		$this->formText = $fromText;
+		$this->fromText = $fromText;
 		$this->fromOffset = 0;
 		$this->lastEdit = null;
 		$this->stackPointer = 0;
@@ -119,8 +121,10 @@ class Parser implements ParserInterface
 	 * @param string $fromText
 	 * @param string $toText
 	 */
-	protected function process($fromText, $toText): void
+	protected function process(?string $fromText, ?string $toText): void
 	{
+        $fromText ??= "";
+        $toText ??= "";
 		// Lets get parsing
 		/**
 		 * @var string|null $delimiters
@@ -135,7 +139,7 @@ class Parser implements ParserInterface
 			// increase granularity
 			if ($fragment instanceof Replace && $hasNextStage) {
 				$this->process(
-					mb_substr($this->formText, $this->fromOffset, (int)$fragment->getFromLen()),
+					mb_substr($this->fromText, $this->fromOffset, (int)$fragment->getFromLen()),
 					$fragment->getText()
 				);
 			} elseif ($fragment instanceof Copy && $this->lastEdit instanceof Copy && $this->edits[count($this->edits)-1] instanceof Copy) {
@@ -160,8 +164,10 @@ class Parser implements ParserInterface
 	 *
 	 * @return OperationInterface[]
 	 */
-	protected function diff($fromText, $toText, ?string $delimiters): array
+	protected function diff(?string $fromText, ?string $toText, ?string $delimiters): array
 	{
+        $fromText ??= "";
+        $toText ??= "";
 		// Empty delimiter means character-level diffing.
 		// In such case, use code path optimized for character-level diffing.
 		if ($delimiters === null || $delimiters === '') {
@@ -182,7 +188,7 @@ class Parser implements ParserInterface
 
 		while ($job = array_pop($jobs)) {
 			// get the segments which must be diff'ed
-			list($fromSegmentStart, $fromSegmentEnt, $toSegmentStart, $toSegmentEnd) = $job;
+			[$fromSegmentStart, $fromSegmentEnt, $toSegmentStart, $toSegmentEnd] = $job;
 
 			// catch easy cases first
 			$fromSegmentLength = $fromSegmentEnt - $fromSegmentStart;
@@ -317,7 +323,7 @@ class Parser implements ParserInterface
 
 		while ($job = array_pop($jobs)) {
 			// get the segments which must be diff'ed
-			list($fromSegmentStart, $fromSegmentEnd, $toSegmentStart, $toSegmentEnd) = $job;
+			[$fromSegmentStart, $fromSegmentEnd, $toSegmentStart, $toSegmentEnd] = $job;
 
 			$fromSegmentLen = $fromSegmentEnd - $fromSegmentStart;
 			$toSegmentLen = $toSegmentEnd - $toSegmentStart;

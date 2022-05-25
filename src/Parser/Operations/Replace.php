@@ -5,16 +5,18 @@ namespace FineDiff\Parser\Operations;
 class Replace implements OperationInterface
 {
 	/**
+     * @var int|string
 	 */
-	private int|string $len;
+	private $len;
 
 	/**
 	 */
 	private string $text;
 
 	/**
+     * @param int|string $fromLen
 	 */
-	public function __construct(int|string $fromLen, string $text)
+	public function __construct($fromLen, string $text)
 	{
 		$this->len = $fromLen;
 		$this->text = $text;
@@ -23,7 +25,7 @@ class Replace implements OperationInterface
 	/**
 	 * @inheritdoc
 	 */
-	public function getFromLen(): int|string
+	public function getFromLen()
 	{
 		return $this->len;
 	}

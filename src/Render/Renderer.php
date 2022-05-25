@@ -7,10 +7,7 @@ use FineDiff\Parser\Operations\OperationInterface;
 
 abstract class Renderer implements RendererInterface
 {
-	/**
-	 * {@inheritdoc}
-	 */
-	public function process(string $fromText, string|OperationCodesInterface $operationCodes): string
+	public function process(string $fromText, $operationCodes): string
 	{
 		$operationCodes = ($operationCodes instanceof OperationCodesInterface) ? $operationCodes->generate() : $operationCodes;
 

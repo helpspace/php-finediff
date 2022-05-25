@@ -46,5 +46,5 @@ interface ParserInterface
 	 *
 	 *@throws GranularityCountException
 	 */
-	public function parse($fromText, $toText): OperationCodesInterface;
+	public function parse(?string $fromText, ?string $toText): OperationCodesInterface;
 }

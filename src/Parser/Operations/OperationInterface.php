@@ -26,8 +26,9 @@ interface OperationInterface
 	public const INSERT = 'i';
 
 	/**
+     * @return int|string
 	 */
-	public function getFromLen(): int|string;
+	public function getFromLen();
 
 	/**
 	 */

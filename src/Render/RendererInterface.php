@@ -9,9 +9,9 @@ interface RendererInterface
 	/**
 	 * Covert text based on the provided operation codes.
 	 *
-	 *
-	 */
-	public function process(string $fromText, string|OperationCodesInterface $operationCodes): string;
+	 * @param string|OperationCodesInterface $operationCodes
+ 	 */
+	public function process(string $fromText, $operationCodes): string;
 
 	/**
 	 *

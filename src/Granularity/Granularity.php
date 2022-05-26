@@ -14,10 +14,12 @@ trait Granularity
 
 	/**
 	 * @inheritdoc
+     * @return mixed
 	 */
-	public function offsetGet($offset): mixed
+    #[\ReturnTypeWillChange]
+	public function offsetGet($offset)
 	{
-		return isset($this->delimiters[$offset]) ? $this->delimiters[$offset] : null;
+		return $this->delimiters[$offset] ?? null;
 	}
 
 	/**

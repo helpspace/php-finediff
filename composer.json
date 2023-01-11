@@ -1,5 +1,5 @@
 {
-    "name": "riki137/finediff",
+    "name": "helpspace/finediff",
     "description": "PHP8 implementation of a Fine granularity Diff engine",
     "license": "MIT",
     "keywords": ["finediff", "diff", "text", "string", "opcode"],
